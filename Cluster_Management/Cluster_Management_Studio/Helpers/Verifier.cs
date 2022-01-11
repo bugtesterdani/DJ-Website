@@ -36,7 +36,7 @@ namespace Helpers
 
                         if (value != null)
                             if (value.Item1 != null && value.Item2 != null)
-                                prop.SetValue(null, value.Item2);
+                                prop.SetValue(outp, value.Item2);
                     }
                 }
                 return Ok(FunctionCallSuccess(outp));
