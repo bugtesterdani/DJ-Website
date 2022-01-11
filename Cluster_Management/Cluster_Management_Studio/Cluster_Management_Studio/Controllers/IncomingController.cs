@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Reflection;
+using System.Runtime.Remoting;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -52,14 +53,22 @@ namespace Cluster_Management_Studio.Controllers
         #region Functions
         #region GET
 
-        // api/<IncomingController>/{Table}/{Select_What}/{Where_Command}
+        /// <summary>
+        /// Hashed Values Parameter Contains the Signed Value of the Message
+        /// Header: auth-token Contains the Encrypted Value of the Message
+        /// 
+        /// Message: SELECT---(What to Select);;;TABLE---(Which Table to use);;;WHERE---(Where parameter for the query)
+        /// </summary>
+        /// <param name="Hashed_Values"></param>
+        /// <returns></returns>
+        // api/<IncomingController>
         [HttpGet("{Hashed_Values}")]
         public async Task<IActionResult> Get(string Hashed_Values)
         {
             Request.Headers.TryGetValue("auth-token", out var token);
 
             Helpers.Verifier<GetMessage, List<Tuple<string, object>>> helper = new Helpers.Verifier<GetMessage, List<Tuple<string, object>>>();
-            ICluster<List<Tuple<string, object>>> cluster_manager_Service = new Cluster<List<Tuple<string, object>>>();
+            ICluster<List<Tuple<string, object>>> cluster_manager_Service = new Cluster_Get();
 
             return await helper.Verify(token, cluster_manager_Service.Get, Hashed_Values, new GetMessage());
         }

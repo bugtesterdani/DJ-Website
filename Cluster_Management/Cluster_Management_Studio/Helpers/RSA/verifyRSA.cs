@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Helpers.RSA
 {
@@ -75,8 +74,7 @@ namespace Helpers.RSA
         {
             List<Tuple<string, string>> returning = new List<Tuple<string, string>>();
 
-            string[] message_splitted = message.Split(";;;");
-            foreach (string item in message_splitted)
+            foreach (string item in message.Split(";;;"))
             {
                 string[] item_splitted = item.Split("---");
                 if (item_splitted.Length == 2)
