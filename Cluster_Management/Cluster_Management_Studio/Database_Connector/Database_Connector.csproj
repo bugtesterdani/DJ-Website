@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Database_Connector\Database_Connector.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
